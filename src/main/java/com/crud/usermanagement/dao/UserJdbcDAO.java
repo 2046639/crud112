@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.crud.usermanagement.model.User;
 
-public class UserJdbcDAO {
+public class UserJdbcDAO implements UserDAO<User> {
 	private String jdbcURL = "jdbc:mysql://localhost:3306/demo?useSSL=false";
 	private String jdbcUsername = "root";
 	private String jdbcPassword = "QazWsx123";
@@ -52,6 +52,7 @@ public class UserJdbcDAO {
 		return connection;
 	}
 
+	@Override
 	public void insertUser(User user) throws SQLException {
 		System.out.println(INSERT_USERS_SQL);
 		try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
@@ -64,6 +65,7 @@ public class UserJdbcDAO {
 			printSQLException(e);
 		}
 	}
+
 
 	public User selectUser(int id) {
 		User user = null;
@@ -83,6 +85,7 @@ public class UserJdbcDAO {
 		return user;
 	}
 
+	@Override
 	public List<User> selectAllUsers() {
 		List<User> users = new ArrayList<>();
 		try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS);) {
@@ -101,6 +104,7 @@ public class UserJdbcDAO {
 		return users;
 	}
 
+	@Override
 	public boolean deleteUser(int id) throws SQLException {
 		boolean rowDeleted;
 		try (PreparedStatement statement = connection.prepareStatement(DELETE_USERS_SQL);) {
@@ -110,6 +114,7 @@ public class UserJdbcDAO {
 		return rowDeleted;
 	}
 
+	@Override
 	public boolean updateUser(User user) throws SQLException {
 		boolean rowUpdated;
 		try (PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {

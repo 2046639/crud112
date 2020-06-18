@@ -1,3 +1,7 @@
-net\javaguides\usermanagement\dao\UserDAO.class
-net\javaguides\usermanagement\model\User.class
-net\javaguides\usermanagement\servlet\UserServlet.class
+com\crud\usermanagement\servlet\UserServlet.class
+com\crud\usermanagement\service\UserJdbcService.class
+com\crud\usermanagement\dao\UserHibernateDAO.class
+com\crud\usermanagement\util\DBHelper.class
+com\crud\usermanagement\dao\UserJdbcDAO.class
+com\crud\usermanagement\dao\UserDAO.class
+com\crud\usermanagement\model\User.class

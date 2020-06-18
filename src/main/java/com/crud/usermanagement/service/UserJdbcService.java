@@ -1,5 +1,6 @@
 package com.crud.usermanagement.service;
 
+import com.crud.usermanagement.dao.UserHibernateDAO;
 import com.crud.usermanagement.dao.UserJdbcDAO;
 import com.crud.usermanagement.model.User;
 
@@ -7,7 +8,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class UserJdbcService {
-    private final UserJdbcDAO dao = UserJdbcDAO.getInstance();
+
+//    private final UserJdbcDAO dao = UserJdbcDAO.getInstance();
+
+    private final UserHibernateDAO dao = UserHibernateDAO.getInstance();
 
     private UserJdbcService() {
     }
@@ -31,8 +35,6 @@ public class UserJdbcService {
     }
 
     public void insertUser(User user) throws SQLException {
-//        dao.dropTable();
-//        dao.createTable();
         dao.insertUser(user);
     }
 

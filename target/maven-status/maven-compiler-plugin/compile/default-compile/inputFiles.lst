@@ -1,3 +1,7 @@
-E:\JM\crud\src\main\java\net\javaguides\usermanagement\servlet\UserServlet.java
-E:\JM\crud\src\main\java\net\javaguides\usermanagement\model\User.java
-E:\JM\crud\src\main\java\net\javaguides\usermanagement\dao\UserDAO.java
+E:\JM\crud2\src\main\java\com\crud\usermanagement\dao\UserHibernateDAO.java
+E:\JM\crud2\src\main\java\com\crud\usermanagement\servlet\UserServlet.java
+E:\JM\crud2\src\main\java\com\crud\usermanagement\dao\UserJdbcDAO.java
+E:\JM\crud2\src\main\java\com\crud\usermanagement\util\DBHelper.java
+E:\JM\crud2\src\main\java\com\crud\usermanagement\model\User.java
+E:\JM\crud2\src\main\java\com\crud\usermanagement\dao\UserDAO.java
+E:\JM\crud2\src\main\java\com\crud\usermanagement\service\UserJdbcService.java
