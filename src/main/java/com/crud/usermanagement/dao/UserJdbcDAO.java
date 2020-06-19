@@ -1,7 +1,6 @@
 package com.crud.usermanagement.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,11 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.crud.usermanagement.model.User;
+import com.crud.usermanagement.util.DBHelper;
 
 public class UserJdbcDAO implements UserDAO<User> {
-	private String jdbcURL = "jdbc:mysql://localhost:3306/demo?useSSL=false";
-	private String jdbcUsername = "root";
-	private String jdbcPassword = "QazWsx123";
 
 	private static final String INSERT_USERS_SQL = "INSERT INTO users" + "  (name, email, country) VALUES "
 			+ " (?, ?, ?);";
@@ -25,9 +22,12 @@ public class UserJdbcDAO implements UserDAO<User> {
 
 	private static Connection connection;
 
-	private UserJdbcDAO() {
-		connection = getMysqlConnection();
-	}
+//	private UserJdbcDAO() {
+//		connection = getMysqlConnection();
+//	}
+    private UserJdbcDAO() {
+	connection = DBHelper.getInstance().getConnection();
+    }
 
 	private static UserJdbcDAO INSTANCE;
 
@@ -36,20 +36,6 @@ public class UserJdbcDAO implements UserDAO<User> {
 			INSTANCE = new UserJdbcDAO();
 		}
 		return INSTANCE;
-	}
-
-
-	protected Connection getMysqlConnection() {
-		Connection connection = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return connection;
 	}
 
 	@Override

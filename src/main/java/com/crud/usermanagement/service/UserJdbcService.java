@@ -1,5 +1,7 @@
 package com.crud.usermanagement.service;
 
+import com.crud.usermanagement.dao.UserDAO;
+import com.crud.usermanagement.dao.UserDaoFactory;
 import com.crud.usermanagement.dao.UserHibernateDAO;
 import com.crud.usermanagement.dao.UserJdbcDAO;
 import com.crud.usermanagement.model.User;
@@ -10,8 +12,8 @@ import java.util.List;
 public class UserJdbcService {
 
 //    private final UserJdbcDAO dao = UserJdbcDAO.getInstance();
-
-    private final UserHibernateDAO dao = UserHibernateDAO.getInstance();
+//    private final UserHibernateDAO dao = UserHibernateDAO.getInstance();
+    private final UserDAO<User> dao = UserDaoFactory.createUserDAO();
 
     private UserJdbcService() {
     }

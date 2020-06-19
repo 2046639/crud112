@@ -7,11 +7,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 public class UserHibernateDAO implements UserDAO<User> {
-    private EntityManager entityManager;
 
     private final SessionFactory sessionFactory;
 

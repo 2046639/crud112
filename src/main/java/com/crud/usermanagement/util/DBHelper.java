@@ -10,24 +10,50 @@ import org.hibernate.internal.SessionFactoryImpl;
 import org.hibernate.service.ServiceRegistry;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
 public class DBHelper {
-    private static final String hibernate_show_sql = "true";
-    private static final String hibernate_hbm2ddl_auto = "create";
-
+    private static DBHelper INSTANCE;
+    public static DBHelper getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new DBHelper();
+        }
+        return INSTANCE;
+    }
+//    private static final String hibernate_show_sql = "true";
+//    private static final String hibernate_hbm2ddl_auto = "update";
     public DBHelper() {
         sessionFactory = getSessionFactory();
     }
 
     private static SessionFactory sessionFactory;
-
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             sessionFactory = createSessionFactory();
         }
         return sessionFactory;
+    }
+
+    public Connection getConnection() {
+        Connection connection = null;
+        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(UtilProperties.getPropertyValue("JDBC_DRIVER"));
+            connection = DriverManager.getConnection(
+                    UtilProperties.getPropertyValue("BASE"),
+                    UtilProperties.getPropertyValue("BASE_USER"),
+                    UtilProperties.getPropertyValue("BASE_PASSWORD"));
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return connection;
+    }
+
+    //Непонятно зачем нужен метод
+    public Configuration getConfiguration() {
+        return DBHelper.getMySqlConfiguration();
     }
 
 
@@ -39,13 +65,13 @@ public class DBHelper {
 //        configuration.addAnnotatedClass(UserJdbcDAO.class);
         configuration.addAnnotatedClass(UserHibernateDAO.class);
 
-        configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        configuration.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-        configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/demo");
-        configuration.setProperty("hibernate.connection.username", "root");
-        configuration.setProperty("hibernate.connection.password", "QazWsx123");
-        configuration.setProperty("hibernate.show_sql", hibernate_show_sql);
-        configuration.setProperty("hibernate.hbm2ddl.auto", hibernate_hbm2ddl_auto);
+        configuration.setProperty("hibernate.dialect", UtilProperties.getPropertyValue("DIALECT"));
+        configuration.setProperty("hibernate.connection.driver_class", UtilProperties.getPropertyValue("JDBC_DRIVER_HIBERNATE"));
+        configuration.setProperty("hibernate.connection.url", UtilProperties.getPropertyValue("BASE"));
+        configuration.setProperty("hibernate.connection.username", UtilProperties.getPropertyValue("BASE_USER"));
+        configuration.setProperty("hibernate.connection.password", UtilProperties.getPropertyValue("BASE_PASSWORD"));
+        configuration.setProperty("hibernate.show_sql", UtilProperties.getPropertyValue("SHOW_SQL"));
+        configuration.setProperty("hibernate.hbm2ddl.auto", UtilProperties.getPropertyValue("hbm2ddl_auto"));
         return configuration;
     }
 
